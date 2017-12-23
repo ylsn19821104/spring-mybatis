@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shihui.dao.UserCourseMapper">
+    <resultMap id="userCourseMap" type="UserCourse">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <association property="course" column="course_id" select="com.shihui.dao.CourseMapper.queryById"/>
+    </resultMap>
+
+    <sql id="course_columns">
+      id,course_id,user_id
+    </sql>
+
+    <select id="queryByUserId" parameterType="int" resultMap="userCourseMap">
+        SELECT
+        <include refid="course_columns"/>
+        FROM user_course WHERE user_id=#{id}
+    </select>
+</mapper>

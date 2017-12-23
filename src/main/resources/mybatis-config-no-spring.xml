@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="jdbc.properties"/>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <package name="com.shihui.model"/>
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="com.shihui.util.SexTypeHandler" jdbcType="VARCHAR"
+                     javaType="com.shihui.emodel.Sex"/>
+    </typeHandlers>
+
+    <plugins>
+        <plugin interceptor="com.shihui.intercept.ExampleInterceptor"/>
+    </plugins>
+    <environments default="dev">
+        <environment id="dev">
+            <transactionManager type="MANAGED">
+                <property name="closeConnection" value="false"/>
+            </transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${database.className}"/>
+                <property name="url" value="${database.url}"/>
+                <property name="username" value="${database.username}"/>
+                <property name="password" value="${database.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <package name="com.shihui.dao"/>
+    </mappers>
+</configuration>
