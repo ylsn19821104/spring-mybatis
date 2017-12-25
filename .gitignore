@@ -1,3 +1,5 @@
+!.gitignore
+
 #ignore idea file
 *.iml
-.idea/ 
+.idea/
